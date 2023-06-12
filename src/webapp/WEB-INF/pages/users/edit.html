@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+  <!-- представление при изменении человека -->
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
+  <!-- здесь  thymeleaf автоматически создаст скрытую строку с полем _method и поставит метод  PATCH, и мы сможем
+  прочитать его с помощью фильтра-->
+  <label for="name"> Enter Username: </label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <br/>
+
+  <label for="email"> Enter Email: </label>
+  <input type="text" th:field="*{email}" id="email"/>
+  <br/>
+
+  <input type="submit" value="Update!"/>
+
+</form>
+</body>
+</html>
