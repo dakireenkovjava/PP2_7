@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <!--    //<meta charset="UTF-8">-->
     <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 
@@ -43,9 +45,9 @@
     <tbody>
 
     <tr th:each="user : ${users}">
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getName()}"></td>
-        <td th:text="${user.getEmail()}"></td>
+        <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getName()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
         <td  >
             <form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
                 <input type="submit" value="Edit"/>
