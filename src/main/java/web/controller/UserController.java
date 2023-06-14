@@ -18,7 +18,7 @@ public class UserController {
     }
 
 
-    @GetMapping() // возвращает людей и передает на представление можно users убрать
+    @GetMapping() // возвращает людей и передает на представление
     public String index(Model model) {
         model.addAttribute("users", userService.index());
         return "users/index";
