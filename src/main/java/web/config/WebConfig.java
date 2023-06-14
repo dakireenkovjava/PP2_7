@@ -14,7 +14,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("web")
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer { // хотим использовать  Thymeleaf
 
     private final ApplicationContext applicationContext;
 
@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setApplicationContext(applicationContext); //исп чтобы настроить Thymeleaf
         templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setSuffix(".html");
         return templateResolver;
