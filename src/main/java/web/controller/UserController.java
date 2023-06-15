@@ -19,25 +19,19 @@ public class UserController {
 
 
     @GetMapping() // возвращает людей и передает на представление
-    public String index(Model model) {
-        model.addAttribute("users", userService.index());
-        return "users/index";
+    public String getUsers(Model model) {
+        model.addAttribute("users", userService.getUsers());
+        return "users/index"; // назване представления которое будет показано пользователю
     }
 
     @GetMapping("/{id}") // возвращает людей и передает на представление  или "/users/{id}"
     //вместо id в url поместить число, и оно войдет в параметры этого метода с помощью @PathVariable
-    public String show(@PathVariable("id") int id, Model model) {
+    public String showUser(@PathVariable("id") int id, Model model) {
         // получим человека по id из DAo и отправим на представление
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.showUser(id));
         return "users/show";
     }
     // возвращает html форму для создания человека
-    /*@GetMapping("/new") // по этому запросу вернется html форма для создания нового человека
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "users/new"; // файл html
-    }*/
-    //или
     @GetMapping("/new") // по этому запросу вернется html форма для создания нового человека
     public String newUser(@ModelAttribute( "user") User user) { //сама создаст объект user и сама положит его в модель
         return "users/new"; // файл html
@@ -53,7 +47,7 @@ public class UserController {
     //методы ообновления и удаления человека
     @GetMapping("/{id}/edit") // адрес метода, по этому адресу users/{id}/edit попадем в этот метод
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.show(id));  // вернется человек с указанным id (id из адреса)
+        model.addAttribute("user", userService.showUser(id));  // вернется человек с указанным id (id из адреса)
         // человек будет положен в модель и к этой модели мы будем иметь доступ в нашем представлении
         return "users/edit"; // представление по этому адресу
     }
@@ -74,61 +68,3 @@ public class UserController {
     }
 
 }
-/*
-был метод
-    @GetMapping("/users") // возвращает людей
-    public String userGet(@RequestParam(value = "count", required = false) String n, Model model) {
-        if (n == null) {
-        model.addAttribute("users", userService.index()); // передаем метод из сервиса (а он из dao)
-        } else {
-            model.addAttribute("users",userService.show(Integer.parseInt(n)));
-        }
-        return "users";
-    }
-*/
-
-
-/*
-11/06/2023 17:36
-@Controller
-@RequestMapping("/users")
-public class UserController {
-    private final UserService userService;
-
-    @Autowired //spring внедрил объект класса userservice c пом конструктора
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-
-    @GetMapping() // возвращает людей и передает на представление можно users убрать
-    public String index(Model model) {
-        model.addAttribute("users", userService.index());
-        return "users/index";
-    }
-
-    @GetMapping("/{id}") // возвращает людей и передает на представление  или "/users/{id}"
-    //вместо id в url поместить число, и оно войдет в параметры этого метода с помощью @PathVariable
-    public String show(@PathVariable("id") int id, Model model) {
-        // получим человека по id из DAo и отправим на представление
-        model.addAttribute("user", userService.show(id));
-        return "users/show";
-    }
-
-    // возвращает html форму для создания человека
-    @GetMapping("/new") // по этому запросу вернется html форма для создания нового человека
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "users/new"; // файл html
-    }
-
-    //принимает на вход post запрос, будет брать данные из этого запроса и будет добавлять этого человека в БД с помощью dao
-    @PostMapping()
-    public String create(@ModelAttribute( "user") User user) {
-        //получаем данные из формы, создаем человека и присваиваем его поля значениям из формы
-        userService.save(user); // метод save реализовать в userdao а затем в userservice
-        return "redirect:/users"; //
-    }
-
-
-}}*/

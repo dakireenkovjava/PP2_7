@@ -14,6 +14,8 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;
+        //Этот метод возвращает конфигурационные классы, которые будут использоваться для создания корневого контекста приложения.
+        // Корневой контекст содержит общие для всего приложения бины, такие как сервисы и репозитории.
     }
 
 
@@ -21,7 +23,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{
-                WebConfig.class
+                WebConfig.class //указываем где находится spring конфигурация
         };
     }
 
@@ -31,6 +33,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+    // все запросы от пользователя отпраляем на despetcherservlet
 
     // фильтры для чтения скрытого метода _mthods putch delete put в html5
     @Override
